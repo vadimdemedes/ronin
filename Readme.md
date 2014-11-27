@@ -94,7 +94,7 @@ Whatever arguments passed to command after command name, will be passed to .run(
 **Bonus**: There's a quicker way to create commands:
 
 ```
-$ ronin generate apps/add
+$ ronin generate command apps/add
 ```
 
 #### Specifying options
