@@ -152,6 +152,40 @@ program.run();
 
 After that, `apps create` command will become `apps:create`.
 
+
+### Middleware
+
+There are often requirements to perform the same operations/checks for many commands.
+For example, user authentication.
+In order to avoid code repetition, Ronin implements middleware concept.
+Middleware is just a function, that accepts the same arguments as .run() function + callback function.
+Middleware functions can be asynchronous, it makes no difference for Ronin.
+
+Let's take a look at this example:
+
+```javascript
+var UsersAddCommand = Command.extend({
+    use: ['auth', 'beforeRun'],
+    
+    run: function (name) {
+        // actual users add command
+    },
+    
+    beforeRun: function (name, next) {
+        // will execute before .run()
+        
+        // MUST call next() when done
+        next();
+    }
+});
+```
+
+In this example, we've got 2 middleware functions: auth and beforeRun.
+Ronin allows you to write middleware functions inside commands or inside `root/middleware` directory.
+So in this example, Ronin will detect that `beforeRun` function is defined inside a command and `auth` function will be `require`d from `root/middleware/auth.js` file.
+
+**Note**: To interrupt the whole program and stop execution, just throw an error.
+
 ## License
 
 The MIT License (MIT) Copyright © 2014 Vadim Demedes vdemedes@gmail.com
