@@ -71,7 +71,7 @@ Each folder is treated like a namespace and each file like a command, where file
 
 To actually create handlers for those commands, in each file, Command should be defined:
 
-```
+```javascript
 var Command = require('ronin').Command;
 
 var AppsAddCommand = module.exports = Command.extend({
@@ -95,7 +95,7 @@ Whatever arguments passed to command after command name, will be passed to .run(
 
 You can specify options and their properties using *options* object.
 
-```
+```javascript
 var AppsDestroyCommand = module.exports = Command.extend({
     desc: 'This command removes application',
     
