@@ -1,6 +1,6 @@
 {
   "name": "ronin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Libary to build shining CLI tools",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "scripts": {
@@ -23,6 +23,7 @@
     "mocha": "^2.0.1"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "class-extend": "^0.1.1",
     "colorodo": "^1.0.0",
     "inflect": "^0.3.0",

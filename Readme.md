@@ -4,7 +4,7 @@ Toolkit for building shining CLI programs in Node.js.
 
 ## Features
 
-- *Forced clean* organization of program code
+- *Forced & clean* organization of program code
 - Command name generation based on folder structure
 - CLI tool to quickly create program skeleton and commands
 - Auto-generated usage and help
@@ -91,29 +91,20 @@ $ hello-world apps add great-app
 
 Whatever arguments passed to command after command name, will be passed to .run() method in the same order they were written.
 
-**Bonus**: There's a quicker way to create commands:
-
-```
-$ ronin generate command apps/add
-```
-
 #### Specifying options
 
-You can specify options and their properties directly, using *options* object or .option() method. Their result is identical.
+You can specify options and their properties using *options* object.
 
 ```
 var AppsDestroyCommand = module.exports = Command.extend({
     desc: 'This command removes application',
     
     options: {
-        name: 'string'
-    },
-    
-    configure: function () {
-        this.option('force', {
+        name: 'string',
+        force: {
             type: 'boolean',
             alias: 'f'
-        });
+        }
     },
     
     run: function (name, force) {
@@ -149,10 +140,14 @@ By default, Ronin separates sub-commands with a space.
 If you want to change that delimiter, just specify this option when initializing Ronin:
 
 ```javascript
-var program = ronin({
-    rootPath: __dirname,
+var program = ronin();
+
+program.set({
+    path: __dirname,
     delimiter: ':'
 });
+
+program.run();
 ```
 
 After that, `apps create` command will become `apps:create`.
