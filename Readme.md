@@ -186,6 +186,13 @@ So in this example, Ronin will detect that `beforeRun` function is defined insid
 
 **Note**: To interrupt the whole program and stop execution, just throw an error.
 
+
+## Tests
+
+```
+npm test
+```
+
 ## License
 
 The MIT License (MIT) Copyright © 2014 Vadim Demedes vdemedes@gmail.com
