@@ -36,6 +36,7 @@ var NewCommand = module.exports = Command.extend({
 		
 		this.mkdir(path + '/bin');
 		this.mkdir(path + '/lib');
+		this.mkdir(path + '/middleware');
 		this.mkdir(path + '/commands');
 		this.mkdir(path + '/test');
 		
