@@ -1,0 +1,13 @@
+{
+	"name": "$name",
+	"description": "",
+	"author": "",
+	"version": "0.1.0",
+	"dependencies": {
+		"ronin": "^0.1.0"
+	},
+	"bin": {
+		"$name": "./bin/$name"
+	},
+	"preferGlobal": true
+}
