@@ -5,6 +5,6 @@ title: Index
 <h1>Guides</h1>
 
 <% guides.each do |guide| %>
-<a href="<%= guide.url %>"><h3><%= guide.data["title"] %></h3></a>
+<%= link_to "<h3>#{ guide.data['title'] }</h3>", guide.url %>
 <p><%= guide.data["description"] %></p>
 <% end %>

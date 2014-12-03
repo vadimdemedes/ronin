@@ -5,12 +5,12 @@ end
 set :css_dir, 'stylesheets'
 set :js_dir, 'scripts'
 set :images_dir, 'images'
-
 set :markdown_engine, :redcarpet
 set :markdown, fenced_code_blocks: true, smartypants: true, highlight: true, disable_indented_code_blocks: true
                 
 activate :syntax, line_numbers: true
 activate :directory_indexes
+activate :relative_assets
 activate :deploy do |deploy|
   deploy.method = :git
 end
@@ -29,6 +29,16 @@ configure :development do
 end
 
 configure :build do
+  helpers do
+    def link_to (value, path, options = {})
+      "<a href='/ronin#{ url_for(path) }'>#{ value }</a>"
+    end
+    
+    def url_for (path)
+      "/ronin#{ path }"
+    end
+  end
+  
   activate :asset_hash
   activate :minify_css
 end
