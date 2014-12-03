@@ -8,10 +8,10 @@ var spawn = require('child_process').spawn;
 
 
 /**
- * New application command
+ * New application
  */
 
-var NewCommand = Command.extend({
+var NewApplication = Command.extend({
 	desc: 'Create new application',
 	
 	run: function (name) {
@@ -27,4 +27,4 @@ var NewCommand = Command.extend({
  * Expose command
  */
 
-module.exports = NewCommand;
+module.exports = NewApplication;
