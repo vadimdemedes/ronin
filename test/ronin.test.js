@@ -81,8 +81,9 @@ describe ('Ronin', function () {
 					'Usage: hello-world COMMAND [OPTIONS]\n\n' +
 					'  Hello World application\n\n' +
 					'Available commands:\n\n' +
-					'apps          List applications\n' +
-					'generate key  Generate new key\n'
+					'apps              List applications\n' +
+					'generate key      Generate new key\n' +
+					'generate project  Generate new project\n'
 				);
 			});
 		});
@@ -175,6 +176,26 @@ describe ('Ronin', function () {
 				stdout.output.should.equal('apps destroy some-app true\n');
 			});
 		});
+		
+		it ('should execute command with a global option', function () {
+		  var program = createProgram();
+		  
+		  var cases = [
+		    'node hello-world.js generate project hello --verbose --app world',
+		    'node hello-world.js generate project hello -a world --verbose',
+		    'node hello-world.js generate project hello --app world --verbose'
+		  ];
+		  
+		  cases.forEach(function (args) {
+		    var stdout = outputStream();
+		    program.stdout = stdout;
+		    
+		    process.argv = args.split(' ');
+		    program.run();
+		    
+		    stdout.output.should.equal('generate project hello true world world\n');
+		  });
+		});
 	});
 	
 	describe ('Middleware', function () {
@@ -203,7 +224,13 @@ function createProgram () {
 	return ronin({
 		path: __dirname + '/fixtures/hello-world',
 		name: 'hello-world',
-		desc: 'Hello World application'
+		desc: 'Hello World application',
+		options: {
+		  app: {
+		    type: 'string',
+		    alias: 'a'
+		  }
+		}
 	});
 }
 
