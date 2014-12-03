@@ -28,7 +28,7 @@ ronin new hello-world
 
 Ronin will create a hello-world directory (if it does not exists or empty) and put everything that's needed to start developing your CLI tool immediately:
 
-![Output](http://cl.ly/image/3u1T073h2v1o/embed)
+![Output](http://cl.ly/image/3p1R160V2Z2W/embed)
 
 ### Initialization
 
