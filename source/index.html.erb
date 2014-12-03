@@ -1,0 +1,149 @@
+---
+title: Ronin - Toolkit for building shining CLI programs with Node.js
+---
+
+<header>
+  <img src="/images/logo@3x.jpg" class="logo img-responsive center-block">
+  <h1 class="text-center">Ronin</h1>
+  <h4 class="text-center">Toolkit for building shining CLI programs with Node.js</h4>
+  <h4 class="text-center">Automatically builds commands based on project structure</h4>
+  <% code('javascript') do %>
+  // commands/apps/add.js
+  var AddApplication = Command.extend({
+    desc: 'Create new application',
+    options: {
+      verbose: 'boolean'
+    },
+    
+    run: function (verbose, name) {
+      // verbose = true, name = "hello-world"
+    }
+  });
+  
+  $ my-program apps add --verbose hello-world
+  <% end %>
+</header>
+
+<nav class="fluid-container">
+  <ul>
+    <li>
+      <%= link_to 'Github', 'https://github.com/vdemedes/ronin' %>
+    </li>
+    <li>
+      <%= link_to 'Quick Start', '/guides/getting-started' %>
+    </li>
+    <li>
+      <%= link_to 'Guides', '/guides' %>
+    </li>
+  </ul>
+</nav>
+
+<section>
+  <h2 class="text-center">Features</h2>
+	
+	<div class="container-fluid features">
+		<div class="row">
+			<div class="col-md-5 col-md-offset-1">
+				<h4>Commands based on project structure <span class="badge">wow</span></h4>
+				<p>
+					Ronin is building commands based on how you structure your project.
+					Create <i>add.js</i> inside <i>apps</i> folder and <mark>apps add</mark> command is there.
+				</p>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+				<h4>Forced code organization</h4>
+				<p>
+					Because Ronin depends on your project structure, it automatically forces you to structure your code in a comfortable way.
+					Each namespace has its folder and all commands that belong to it are in that folder.
+				</p>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-5 col-md-offset-1">
+				<h4>Middleware</h4>
+				<p>
+					Avoid repeating yourself and specify middleware for each command.
+					Useful for authentication, validation, etc.
+				</p>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+				<h4>Auto-generated help</h4>
+				<p>
+					Ronin generates help for a whole program, individual namespace or command.
+					There is also ability to customize help output.
+				</p>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-5 col-md-offset-1">
+				<h4>Local and global options</h4>
+				<p>
+					You can easily specify command and global options, their types, aliases and default values.
+					Their values is passed to command as function arguments in the order they were defined.
+				</p>
+			</div>
+			
+			<div class="col-md-5 col-md-offset-1">
+				<h4>One command to get started</h4>
+				<p>
+					Ronin ships with a Yeoman generator, that will get you started in less than a minute.
+					It creates a base for your CLI program, installs dependencies and links it, so that it's accessible from $PATH.
+				</p>
+			</div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-md-5 col-md-offset-1">
+		    <h4>Small codebase and test coverage</h4>
+		    <p>
+		      Ronin's codebase is only X sloc.
+		      Every piece of Ronin is carefully tested.
+		  </div>
+		  
+		  <div class="col-md-5 col-md-offset-1">
+		    <p class="coming-soon">
+		      More features coming soon.
+		      Open a <a href="https://github.com/vdemedes/ronin/issues" target="_blank">github issue</a> if you have suggestions.
+		    </p>
+		  </div>
+		</div>
+	</div>
+</section>
+
+<section>
+  <h2 class="text-center">Try it out!</h2>
+  <p>
+    Ronin will help you focus on building your CLI application, rather than on <b>how</b> to build a CLI application.
+    To get you started, there is a <%= link_to 'Getting Started', '/guides/getting-started' %> tutorial, where you will create your first CLI program with Ronin.
+    There are also <b>non-boring</b> <%= link_to 'guides', '/guides' %> available, if you want to know more.
+  </p>
+</section>
+
+<section>
+  <h2 class="text-center">Show some <i class="icon icon-heart"></i></h2>
+  <p class="text-center">Yes, that's all it takes! Tweet, follow and star it on GitHub!</p>
+  
+  <ol class="sharing">
+    <li>
+      <a class="twitter-share-button"
+          data-text="Just found Ronin, easy to use toolkit for building CLI apps with Node.js. Check it out!"
+          data-url="http://vdemedes.github.io/ronin"
+          data-related="vdemedes"
+          href="https://twitter.com/share">Tweet</a>
+    </li>
+    <li>
+			<a href="https://twitter.com/vdemedes" class="twitter-follow-button" data-show-count="false">Follow @vdemedes</a>
+	  </li>
+	  <li>
+			<iframe src="http://ghbtns.com/github-btn.html?user=vdemedes&repo=ronin&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+	  </li>
+	</ol>
+</section>
+
+<script>
+window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
