@@ -1,6 +1,6 @@
 {
   "name": "ronin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Libary to build shining CLI tools",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "scripts": {
@@ -33,5 +33,9 @@
   },
   "bin": {
     "ronin": "./bin/ronin"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0",
+    "generator-ronin": "^0.1.0"
   }
 }
