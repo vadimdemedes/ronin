@@ -8,8 +8,9 @@ var AppsEditCommand = module.exports = Command.extend({
 		this.program.stdout.write('apps edit ' + name + '\n');
 	},
 	
-	beforeRun: function (name, next) {
-		this.program.stdout.write('beforeRun ' + name + '\n');
+	beforeRun: function (next) {
+		this.program.stdout.write('beforeRun\n');
+		
 		next();
 	}
 });

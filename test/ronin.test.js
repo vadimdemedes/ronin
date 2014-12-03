@@ -209,8 +209,8 @@ describe ('Ronin', function () {
 			
 			setTimeout(function () {
 				stdout.output.should.equal(
-					'auth some-app\n' +
-					'beforeRun some-app\n' +
+					'auth\n' +
+					'beforeRun\n' +
 					'apps edit some-app\n'
 				);
 				
