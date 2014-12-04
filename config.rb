@@ -31,7 +31,9 @@ end
 configure :build do
   helpers do
     def link_to (value, path, options = {})
-      "<a href='/ronin#{ url_for(path) }'>#{ value }</a>"
+      url = url_for path
+      
+      "<a href='#{ url }'>#{ value }</a>"
     end
     
     def url_for (path)
