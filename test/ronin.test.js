@@ -9,6 +9,7 @@ var Logger = require('../lib/logger');
 
 var resolve = require('path').resolve;
 var ronin = require('../');
+var chalk = require('chalk');
 
 
 /**
@@ -134,7 +135,7 @@ describe ('Ronin', function () {
 			program.run();
 			
 			stdout.output.should.equal(
-				'error'.color('red') + '\tgenerate key some-key\n'
+				chalk.red('error') + '\tgenerate key some-key\n'
 			);
 		});
 		
