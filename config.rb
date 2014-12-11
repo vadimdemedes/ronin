@@ -33,10 +33,11 @@ configure :build do
     def link_to (value, path, options = {})
       url = url_for path
       
-      "<a href='#{ url }'>#{ value }</a>"
+      "<a href=\"#{ url }\">#{ value }</a>"
     end
     
     def url_for (path)
+      return path if path.start_with?("http")
       "/ronin#{ path }"
     end
   end
