@@ -15,9 +15,11 @@ var NewApplication = Command.extend({
 	desc: 'Create new application',
 	
 	run: function (name) {
-	  spawn('yo', ['ronin', name], {
-		  cwd: process.cwd(),
-		  stdio: 'inherit'
+		var execFile = process.platform === "win32" ? "yo.cmd" : "yo";
+
+		spawn(execFile, ['ronin', name], {
+			cwd: process.cwd(),
+			stdio: 'inherit'
 		});
 	}
 });
