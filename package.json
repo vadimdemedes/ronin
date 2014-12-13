@@ -1,6 +1,6 @@
 {
   "name": "ronin",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Libary to build shining CLI tools",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "scripts": {
