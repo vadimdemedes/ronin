@@ -2,6 +2,8 @@
 
 Toolkit for building shining CLI programs in Node.js.
 
+![NPM stats](https://nodei.co/npm/ronin.png?downloads=true)
+
 ## Features
 
 - *Forced & clean* organization of program code
