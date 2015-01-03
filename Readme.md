@@ -2,7 +2,7 @@
 
 Toolkit for building shining CLI programs in Node.js.
 
-[![Build Status](https://travis-ci.org/vdemedes/ronin.svg)](https://travis-ci.org/vdemedes/ronin)
+[![Circle CI](https://circleci.com/gh/vdemedes/ronin.svg?style=svg)](https://circleci.com/gh/vdemedes/ronin)
 
 ## Features
 
