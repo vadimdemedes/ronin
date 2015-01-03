@@ -3,7 +3,6 @@
  */
 
 require('chai').should();
-require('colorodo');
 
 var Logger = require('../lib/logger');
 
