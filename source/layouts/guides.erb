@@ -7,44 +7,30 @@
     <title><%= current_page.data.title %> - Guides - Ronin</title>
     
     <%= stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic' %>
-    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" %>
+    <%= stylesheet_link_tag "normalize" %>
+    <%= stylesheet_link_tag "skeleton" %>
     <%= stylesheet_link_tag "guides" %>
   </head>
   
   <body class="<%= page_classes %>">
     <div class="container">
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-links">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="<%= url_for '/' %>"><i class="icon icon-home"></i></a>
-          </div>
-          
-          <div class="collapse navbar-collapse" id="nav-links">
-            <ul class="nav navbar-nav">
-              <li><%= link_to 'Ronin', '/' %></li>
-              <li><%= link_to 'Quick Start', '/guides/getting-started' %></li>
-              <li><%= link_to 'Guides', '/guides' %></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="https://github.com/vdemedes/ronin" target="_blank">Github</a></li>
-            </ul>
-          </div>
-        </div>
+      <nav class="navbar row">
+        <ul class="nine columns">
+          <li><a class="logo" href="<%= url_for '/' %>"><i class="icon icon-home"></i></a></li>
+          <li><%= link_to 'Ronin', '/' %></li>
+          <li><%= link_to 'Quick Start', '/guides/getting-started' %></li>
+          <li><%= link_to 'Guides', '/guides' %></li>
+        </ul>
+        
+        <ul class="three columns">
+          <li><a href="https://github.com/vdemedes/ronin" target="_blank">Github</a></li>
+        </ul>
       </nav>
       
       <%= yield %>
       
       <footer>Made by <a href="https://twitter.com/vdemedes" target="_blank">Vadim Demedes</a></footer>
     </div>
-    
-    <%= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js' %>
-    <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' %>
     
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

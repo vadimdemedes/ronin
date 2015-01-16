@@ -2,11 +2,11 @@
 title: Ronin - Toolkit for building shining CLI programs with Node.js
 ---
 
-<header>
-  <%= image_tag '/images/logo@3x.jpg', class: 'logo img-responsive center-block' %>
-  <h1 class="text-center">Ronin</h1>
-  <h4 class="text-center">Toolkit for building shining CLI programs with Node.js</h4>
-  <h4 class="text-center">Automatically builds commands based on project structure</h4>
+<header class="text-center">
+  <%= image_tag '/images/logo@3x.jpg', class: 'logo block-center img-responsive' %>
+  <h1>Ronin</h1>
+  <h4>Toolkit for building shining CLI programs with Node.js</h4>
+  <h4>Automatically builds commands based on project structure</h4>
   <% code('javascript') do %>
   // commands/apps/add.js
   var AddApplication = Command.extend({
@@ -24,7 +24,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
   <% end %>
 </header>
 
-<nav class="fluid-container">
+<nav>
   <ul>
     <li>
       <a href="https://github.com/vdemedes/ronin" target="_blank">Github</a>
@@ -41,9 +41,9 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 <section>
   <h2 class="text-center">Features</h2>
 	
-	<div class="container-fluid features">
+	<div class="container u-full-width features">
 		<div class="row">
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>Commands based on project structure <span class="badge">wow</span></h4>
 				<p>
 					Ronin is building commands based on how you structure your project.
@@ -51,7 +51,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 				</p>
 			</div>
 			
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>Forced code organization</h4>
 				<p>
 					Because Ronin depends on your project structure, it automatically forces you to structure your code in a comfortable way.
@@ -61,7 +61,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 		</div>
 		
 		<div class="row">
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>Middleware</h4>
 				<p>
 					Avoid repeating yourself and specify middleware for each command.
@@ -69,7 +69,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 				</p>
 			</div>
 			
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>Auto-generated help</h4>
 				<p>
 					Ronin generates help for a whole program, individual namespace or command.
@@ -79,7 +79,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 		</div>
 		
 		<div class="row">
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>Local and global options</h4>
 				<p>
 					You can easily specify command and global options, their types, aliases and default values.
@@ -87,7 +87,7 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 				</p>
 			</div>
 			
-			<div class="col-md-5 col-md-offset-1">
+			<div class="five columns">
 				<h4>One command to get started</h4>
 				<p>
 					Ronin ships with a Yeoman generator, that will get you started in less than a minute.
@@ -97,14 +97,14 @@ title: Ronin - Toolkit for building shining CLI programs with Node.js
 		</div>
 		
 		<div class="row">
-		  <div class="col-md-5 col-md-offset-1">
+		  <div class="five columns">
 		    <h4>Small codebase and test coverage</h4>
 		    <p>
 		      Ronin's codebase is only 269 sloc.
 		      Every piece of Ronin is carefully tested.
 		  </div>
 		  
-		  <div class="col-md-5 col-md-offset-1">
+		  <div class="five columns">
 		    <p class="coming-soon">
 		      More features coming soon.
 		      Open a <a href="https://github.com/vdemedes/ronin/issues" target="_blank">github issue</a> if you have suggestions.

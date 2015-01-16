@@ -70,6 +70,6 @@ choose('Select a color: ', ['red', 'green', 'blue'], function (err, color, index
 
 which will output this in console:
 
-![](http://cl.ly/image/2r3A0C0r3b2r/embed)
+![](../../images/screenshots/asking-for-data.jpg)
 
 For more information on *asking*, visit its [Github repository](https://github.com/vdemedes/asking).

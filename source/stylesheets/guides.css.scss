@@ -2,6 +2,7 @@
 @import 'compass';
 @import 'fonts';
 @import 'syntax-highlighting';
+@import 'common';
 
 body {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -10,15 +11,6 @@ body {
 
 p {
   margin-bottom: 30px;
-}
-
-p, li {
-  line-height: 1.6em;
-}
-
-mark {
-  background: #fdffb6;
-  padding: 2px 4px;
 }
 
 h1 {
@@ -55,9 +47,15 @@ div.container {
 }
 
 nav.navbar {
-  @include border-radius(0);
-  background: none;
-  border: 0;
+  li {
+    list-style: none;
+    display: inline;
+    margin-left: 20px;
+    
+    &:first-child {
+      margin-left: 0;
+    }
+  }
 
   a {
     font-size: 16px;
@@ -67,17 +65,13 @@ nav.navbar {
       color: #111 !important;
     }
     
-    &.navbar-brand i {
+    &.logo i {
       @include border-radius(50px);
       border: 1px solid #eee;
       color: #ccc;
       padding: 6px;
       font-size: 14px;
     }
-  }
-
-  div.container-fluid {
-    padding: 0;
   }
 }
 

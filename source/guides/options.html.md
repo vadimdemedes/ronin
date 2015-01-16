@@ -98,7 +98,7 @@ program.run();
 
 To get the value of a global option, use ==this.global== property inside *.run()* method:
 
-```
+```javascript
 var RemoveTask = Command.extend({
 	desc: 'Removes task',
 	
