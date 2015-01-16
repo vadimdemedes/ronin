@@ -11,6 +11,7 @@ Toolkit for building shining CLI programs in Node.js.
 - CLI tool to quickly create program skeleton and commands
 - Auto-generated usage and help
 - Small codebase (269 sloc)
+- **Program auto-updates itself when new version is available**
 
 ## Installation
 
@@ -188,6 +189,20 @@ So in this example, Ronin will detect that `beforeRun` function is defined insid
 
 **Note**: To interrupt the whole program and stop execution, just throw an error.
 
+
+### Auto-updating
+
+To make your program auto-update itself, only 1 line of code needed.
+Go to your program's index file and replace `program.run()` with this:
+
+```javascript
+program.autoupdate(function () {
+  program.run();
+});
+```
+
+From now on, your program will check for updates once a day and if new update is available, it will automatically install it.
+**How cool is this?**
 
 ## Tests
 
