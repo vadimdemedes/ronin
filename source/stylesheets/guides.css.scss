@@ -75,6 +75,20 @@ nav.navbar {
   }
 }
 
+@media (max-width: 550px) {
+  nav.navbar {
+    text-align: center;
+    
+    li:first-child {
+      display: block;
+    }
+  }
+  
+  h1 {
+    margin-top: 20px;
+  }
+}
+
 footer {
   margin: 60px 0 20px;
   text-align: center;
