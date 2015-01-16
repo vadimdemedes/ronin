@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asking user for data - Guides - Ronin</title>
+    
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic" rel="stylesheet" type="text/css" />
+    <link href="../../stylesheets/guides-ad5b1a1a.css" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body class="guides guides_asking-for-data guides_asking-for-data_index">
+    <div class="container">
+      <nav class="navbar row">
+        <ul class="nine columns">
+          <li><a class="logo" href="/ronin/"><i class="icon icon-home"></i></a></li>
+          <li><a href="/ronin/">Ronin</a></li>
+          <li><a href="/ronin/guides/getting-started">Quick Start</a></li>
+          <li><a href="/ronin/guides">Guides</a></li>
+        </ul>
+        
+        <ul class="three columns">
+          <li><a href="https://github.com/vdemedes/ronin" target="_blank">Github</a></li>
+        </ul>
+      </nav>
+      
+      <h1>Asking for data</h1>
+
+<p>After reading this guide you will know how to:</p>
+
+<ol>
+<li>Ask user for data</li>
+<li>Prompt for passwords</li>
+<li>Display menu of choices</li>
+</ol>
+
+<h3>Asking simple questions</h3>
+
+<p>To gather input from the user we are going to use <a href="https://github.com/vdemedes/asking">asking</a> package, because it&rsquo;s simple and is not bloated with unneeded features. It is inspired by highly popular <a href="https://github.com/JEG2/highline">highline</a> ruby gem. Let&rsquo;s go ahead and install it:</p>
+<div class="highlight plaintext"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>$ npm install asking --save
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Asking package exposes only 2 functions: <em>ask</em> and <em>choose</em>. Simple as that. <em>ask</em> method is for entering data manually and <em>choose</em> method is for selecting one of the possible answers. To get started with <em>asking</em>:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">choose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'asking'</span><span class="p">).</span><span class="nx">choose</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ask</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'asking'</span><span class="p">).</span><span class="nx">ask</span><span class="p">;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>To ask user a question:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nx">ask</span><span class="p">(</span><span class="s1">'What is your favourite color?'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// color variable contains the answer</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p><em>ask</em> also supports default values and input validation:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7</pre></td><td class="code"><pre><span class="nx">ask</span><span class="p">(</span><span class="s1">'What is your favourite color?'</span><span class="p">,</span> <span class="p">{</span> <span class="na">default</span><span class="p">:</span> <span class="s1">'green'</span> <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// color defaults to "green"</span>
+<span class="p">});</span>
+
+<span class="nx">ask</span><span class="p">(</span><span class="s1">'What is your favourite color?'</span><span class="p">,</span> <span class="p">{</span> <span class="na">pattern</span><span class="p">:</span> <span class="sr">/red|green|blue/</span> <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// color can be either "red", "green" or "blue"</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3>Prompting for passwords</h3>
+
+<p>Password prompt is a bit different from the others, because it&rsquo;s input should be hidden. To achieve this behavior with <em>asking</em>, simply:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nx">ask</span><span class="p">(</span><span class="s1">'Enter your password: '</span><span class="p">,</span> <span class="p">{</span> <span class="na">hidden</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// password will be hidden in console</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3>Menu of answers</h3>
+
+<p>Thanks to <em>choose</em> method, we can provide user with a list of possible answers to our question. For example:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="nx">choose</span><span class="p">(</span><span class="s1">'Select a color: '</span><span class="p">,</span> <span class="p">[</span><span class="s1">'red'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'blue'</span><span class="p">],</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">color</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// color is either "red", "green", "blue"</span>
+    <span class="c1">// index is an index of answer</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>which will output this in console:</p>
+
+<p><img src="../../images/screenshots/asking-for-data-6c8af4fe.jpg" /></p>
+
+<p>For more information on <em>asking</em>, visit its <a href="https://github.com/vdemedes/asking">Github repository</a>.</p>
+
+      
+      <footer>Made by <a href="https://twitter.com/vdemedes" target="_blank">Vadim Demedes</a></footer>
+    </div>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-56814364-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>

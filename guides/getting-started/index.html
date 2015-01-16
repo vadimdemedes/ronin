@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started - Guides - Ronin</title>
+    
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic" rel="stylesheet" type="text/css" />
+    <link href="../../stylesheets/guides-ad5b1a1a.css" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body class="guides guides_getting-started guides_getting-started_index">
+    <div class="container">
+      <nav class="navbar row">
+        <ul class="nine columns">
+          <li><a class="logo" href="/ronin/"><i class="icon icon-home"></i></a></li>
+          <li><a href="/ronin/">Ronin</a></li>
+          <li><a href="/ronin/guides/getting-started">Quick Start</a></li>
+          <li><a href="/ronin/guides">Guides</a></li>
+        </ul>
+        
+        <ul class="three columns">
+          <li><a href="https://github.com/vdemedes/ronin" target="_blank">Github</a></li>
+        </ul>
+      </nav>
+      
+      <h1>Getting Started</h1>
+
+<p>After reading this guide you will know:</p>
+
+<ol>
+<li>How to create a base for your program</li>
+<li>Understand how Ronin generates your commands</li>
+<li>Configure options for a command</li>
+</ol>
+
+<h3>Installation</h3>
+
+<p>To install Ronin via npm, simply:</p>
+<div class="highlight shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="gp">$ </span>npm install --global ronin
+</pre></td></tr></tbody></table>
+</div>
+
+<blockquote>
+<p>Notice <mark>--global</mark> option in that command. This option tells npm to install Ronin in a place, where it&rsquo;s accessible globally.</p>
+</blockquote>
+
+<p>It will also install Yeoman, if you don&rsquo;t have it already, and Ronin&rsquo;s generators.</p>
+
+<h3>Creating your first program</h3>
+
+<p>Now, let&rsquo;s build a theoretical todo list CLI application.
+Ronin ships with a <strong>ronin</strong> command-line utility, that helps you get started in seconds.
+To create a new program and configure it automatically, run:</p>
+<div class="highlight shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="gp">$ </span>ronin new todo
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The output of this command should be like this:</p>
+
+<p><img src="../../images/screenshots/getting-started-0-6202596d.jpg" /></p>
+
+<p>It will create a folder named <em>todo</em> and put there all the required files to start.
+Also, it will run <em>npm install</em> to install dependencies and <em>npm link</em> to make our <em>todo</em> program available globally.</p>
+
+<p>If you will run <em>todo</em> now, you&rsquo;ll see that a program outputs help message and has a <em>hello</em> command by default:</p>
+
+<p><img src="../../images/screenshots/getting-started-1-175f171a.jpg" /></p>
+
+<p>Let&rsquo;s open <em>index.js</em> and change the description of our program:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">ronin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'ronin'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">program</span> <span class="o">=</span> <span class="nx">ronin</span><span class="p">({</span>
+  <span class="na">path</span><span class="p">:</span> <span class="nx">__dirname</span><span class="p">,</span>
+  <span class="na">desc</span><span class="p">:</span> <span class="s1">'Simple to-do application'</span>
+<span class="p">});</span>
+
+<span class="nx">program</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>If you will run <em>todo</em> again, you&rsquo;ll notice an updated description.
+Next part, learning how Ronin generates your commands.</p>
+
+<h3>Commands</h3>
+
+<p>As you probably remember from the homepage, Ronin generates commands based on your project structure.</p>
+
+<blockquote>
+<p>All commands should be placed in <em>commands</em> directory.</p>
+</blockquote>
+
+<p>Our todo application should list all tasks, create new tasks and also remove them.
+For Ronin to understand what commands we want, create such files inside <em>commands</em> directory:</p>
+<div class="highlight plaintext"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre>- commands/
+    - list.js
+    - add.js
+    - remove.js
+</pre></td></tr></tbody></table>
+</div>
+
+<p>And Ronin will know, that we want <em>list</em>, <em>add</em> and <em>remove</em> commands.
+Let&rsquo;s fill in a required code for those commands.
+Repeat the following code for all files:</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">Command</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'ronin'</span><span class="p">).</span><span class="nx">Command</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">List</span> <span class="o">=</span> <span class="nx">Command</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="na">desc</span><span class="p">:</span> <span class="s1">'List all tasks'</span><span class="p">,</span>
+
+    <span class="na">run</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">List</span><span class="p">;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Now, if you execute <em>todo</em>, you should see something like this:</p>
+
+<p><img src="../../images/screenshots/getting-started-2-413bbef4.jpg" /></p>
+
+<h3>Command options</h3>
+
+<p>I guess 99% of command-line programs accept options to change their behavior.
+In our example to-do application, options might come handy to prevent accidental removals of tasks. Let&rsquo;s implement <em>&ndash;force</em> option to confirm the removal.</p>
+<div class="highlight javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">Remove</span> <span class="o">=</span> <span class="nx">Command</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="na">desc</span><span class="p">:</span> <span class="s1">'Removes a task'</span><span class="p">,</span>
+
+    <span class="na">options</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">force</span><span class="p">:</span> <span class="s1">'boolean'</span>
+    <span class="p">},</span>
+
+    <span class="na">run</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">force</span><span class="p">,</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">force</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'--force should be set when removing a task!'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// it's ok, remove the task with given name</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>All should be defined <mark>options</mark> property.
+Their values are passed to <mark>.run()</mark> method first, before other arguments, <strong>in the order they were defined</strong>.</p>
+
+<blockquote>
+<p>There is a dedicated guide to options. <a href="/ronin/guides/options">Read it</a> to discover all functionality for defining options.</p>
+</blockquote>
+
+      
+      <footer>Made by <a href="https://twitter.com/vdemedes" target="_blank">Vadim Demedes</a></footer>
+    </div>
+    
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-56814364-2', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </body>
+</html>
