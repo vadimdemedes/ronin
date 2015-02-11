@@ -136,10 +136,12 @@ var Program = (function () {
 
       // if the error is related to code
       // throw it
-      if (nativeErrors.indexOf(err.name) > -1) _this.stdout.write(err.stack + os.EOL);
-
       // if not, assume that it was thrown on purpose
-      _this.stdout.write("" + chalk.red("error") + "\t" + err.message + "" + os.EOL);
+      if (nativeErrors.indexOf(err.name) > -1) {
+        _this.stdout.write(err.stack + os.EOL);
+      } else {
+        _this.stdout.write("" + chalk.red("error") + "\t" + err.message + "" + os.EOL);
+      }
 
       process.exit(1);
     });
