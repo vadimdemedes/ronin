@@ -4,8 +4,6 @@
 
 require('chai').should();
 
-var Logger = require('../lib/logger');
-
 var resolve = require('path').resolve;
 var ronin = require('../');
 var chalk = require('chalk');
@@ -16,6 +14,10 @@ var chalk = require('chalk');
  */
 
 describe ('Ronin', function () {
+  afterEach(function () {
+    process.removeAllListeners('uncaughtException');
+  });
+  
 	describe ('Setup', function () {
 		it ('should setup application with no arguments', function () {
 			var program = ronin();
@@ -82,7 +84,6 @@ describe ('Ronin', function () {
 					'  Hello World application\n\n' +
 					'Available commands:\n\n' +
 					'apps              List applications\n' +
-					'generate key      Generate new key\n' +
 					'generate project  Generate new project\n'
 				);
 			});
@@ -108,8 +109,8 @@ describe ('Ronin', function () {
 					'  List applications\n\n' +
 					'Additional commands:\n\n' +
 					'apps add      Add application\n' +
-					'apps edit     Edit application\n' +
-					'apps destroy  Destroy application\n'
+					'apps destroy  Destroy application\n' +
+					'apps edit     Edit application\n'
 				);
 			});
 		});
@@ -123,19 +124,6 @@ describe ('Ronin', function () {
 			program.run();
 			
 			stdout.output.should.equal('apps\n');
-		});
-		
-		it ('should execute command and show error', function () {
-			var stdout = outputStream();
-			var program = createProgram();
-			Logger.stderr = stdout;
-			
-			process.argv = 'node hello-world.js generate key some-key'.split(' ');
-			program.run();
-			
-			stdout.output.should.equal(
-				chalk.red('error') + '\tgenerate key some-key\n'
-			);
 		});
 		
 		it ('should execute command with an option and argument', function () {

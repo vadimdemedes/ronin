@@ -1,8 +1,10 @@
+"use strict";
+
 /**
  * Dependencies
  */
 
-var fs = require('fs');
+var fs = require("fs");
 
 
 /**
@@ -20,7 +22,9 @@ var fs = require('fs');
  */
 
 if (!Object.assign) {
-  Object.assign = (dest, src) => {
-    Object.keys(src).forEach(key => dest[key] = src[key]);
+  Object.assign = function (dest, src) {
+    Object.keys(src).forEach(function (key) {
+      return dest[key] = src[key];
+    });
   };
 }

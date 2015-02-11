@@ -1,6 +1,6 @@
 {
   "name": "ronin",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Libary to build shining CLI tools",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "scripts": {
@@ -19,6 +19,7 @@
     "url": "https://github.com/vdemedes/ronin/issues"
   },
   "devDependencies": {
+    "6to5": "^3.5.3",
     "chai": "^1.10.0",
     "mocha": "^2.0.1"
   },
