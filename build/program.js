@@ -108,16 +108,6 @@ var Program = (function () {
         _this.commands[_name] = command;
       }
     });
-
-    // calculate a maximum number
-    // of delimiters in all command names
-    var max = function (arr) {
-      return Math.max.apply(Math, _toArray(arr));
-    };
-
-    this._level = max(Object.keys(this.commands).map(function (key) {
-      return key.split(_this.delimiter).length;
-    }));
   };
 
 
@@ -140,7 +130,7 @@ var Program = (function () {
       if (nativeErrors.indexOf(err.name) > -1) {
         _this.stdout.write(err.stack + os.EOL);
       } else {
-        _this.stdout.write("" + chalk.red("error") + "\t" + err.message + "" + os.EOL);
+        _this.stdout.write(chalk.red("error") + "\t" + err.message + os.EOL);
       }
 
       process.exit(1);
@@ -151,21 +141,37 @@ var Program = (function () {
     this.setupCommands();
 
     // strip executable and path to a script
-    var options = minimist(process.argv.slice(2));
+    process.argv.splice(0, 2);
+
+    // parse arguments
+    var options = minimist(process.argv);
     var argv = options._;
 
     // determine if it is a help command
     var isHelp = !argv.length || options.h || options.help;
 
-    // remove node, path to a script
-    // and command name from argv
-    var end = this.delimiter === " " ? this._level : 1;
+    // find matching command
+    var names = Object.keys(this.commands);
 
-    process.argv.splice(0, 2 + end);
+    var matches = names.filter(function (name) {
+      var isValid = true;
 
-    var name = argv.splice(0, end).join(this.delimiter);
+      name.split(_this.delimiter).forEach(function (part, i) {
+        if (part !== argv[i]) isValid = false;
+      });
+
+      return isValid;
+    });
+
+    var name = matches.reverse()[0] || "";
     var command = this.commands[name];
 
+    // strip command name from arguments
+    var delimiters = name.split(this.delimiter).length;
+
+    process.argv.splice(0, delimiters);
+
+    // execute
     if (isHelp) {
       var help = undefined;
 
@@ -244,6 +250,17 @@ var Program = (function () {
    */
   Program.prototype.help = function help() {
     var _this = this;
+    // calculate a maximum number
+    // of delimiters in all command names
+    var max = function (arr) {
+      return Math.max.apply(Math, _toArray(arr));
+    };
+
+    var delimiters = max(Object.keys(this.commands).map(function (key) {
+      return key.split(_this.delimiter).length;
+    }));
+
+    // build help output
     var help = "";
 
     help += "Usage: " + this.name + " COMMAND [OPTIONS]" + (os.EOL + os.EOL);
@@ -262,7 +279,7 @@ var Program = (function () {
       var parentExists = parent && _this.commands[parent];
 
       // include command if it does not have a parent
-      return !parentExists || parts.length < _this._level;
+      return !parentExists || parts.length < delimiters;
     });
 
     // program does not have commands
