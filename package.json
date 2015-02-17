@@ -19,7 +19,7 @@
     "url": "https://github.com/vdemedes/ronin/issues"
   },
   "devDependencies": {
-    "6to5": "^3.5.3",
+    "babel": "^4.1.1",
     "chai": "^1.10.0",
     "mocha": "^2.0.1"
   },
