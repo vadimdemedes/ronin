@@ -46,9 +46,9 @@ var Command = (function () {
    */
   Command.prototype.help = function help(type) {
     var _this = this;
-    if (type === "compact") return this.desc;
-
-    var help = "";
+    if (type === "compact") {
+      return this.desc;
+    }var help = "";
 
     help += "Usage: " + this.usage() + "" + (os.EOL + os.EOL);
 
@@ -65,9 +65,9 @@ var Command = (function () {
     });
 
     // no sub-commands
-    if (!names.length) return help;
-
-    // sort commands alphabetically
+    if (!names.length) {
+      return help;
+    } // sort commands alphabetically
     names.sort(function (a, b) {
       return a.localeCompare(b);
     });
@@ -179,7 +179,7 @@ var Command = (function () {
     options = command.options;
 
     parseOptions = this._buildOptions(options);
-    var args = minimist(process.argv, parseOptions);
+    var args = this.options = minimist(process.argv, parseOptions);
 
     // arguments for .run() method
     // need to build them in the same order

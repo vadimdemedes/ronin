@@ -8,6 +8,6 @@ var AppsAddCommand = module.exports = Command.extend({
 	},
 	
 	run: function (stack, name) {
-		this.program.stdout.write('apps add ' + stack + ' ' + name + '\n');
+		this.program.stdout.write('apps add ' + this.options.stack + ' ' + name + '\n');
 	}
 });
