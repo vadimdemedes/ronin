@@ -1,6 +1,6 @@
 "use strict";
 
-var _toArray = function (arr) { return Array.isArray(arr) ? arr : Array.from(arr); };
+var _toConsumableArray = function (arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } };
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
@@ -90,9 +90,9 @@ var Program = (function () {
    */
   Program.prototype.setupCommands = function setupCommands() {
     var _this = this;
-    if (!fs.existsSync(this.path)) return;
-
-    var files = glob(join(this.path, "commands", "**", "*"));
+    if (!fs.existsSync(this.path)) {
+      return;
+    }var files = glob(join(this.path, "commands", "**", "*"));
 
     files.forEach(function (path) {
       path = path.replace(join(_this.path, "commands"), "").replace(separator, "");
@@ -227,7 +227,7 @@ var Program = (function () {
     // get the latest version of itself
     exec("npm info " + name + " version", function (err, latestVersion) {
       // compare using semver
-      var updateAvailable = semver.gt(latestVersion, version);
+      var updateAvailable = err || !latestVersion ? false : semver.gt(latestVersion, version);
 
       if (!updateAvailable) return done();
 
@@ -253,7 +253,7 @@ var Program = (function () {
     // calculate a maximum number
     // of delimiters in all command names
     var max = function (arr) {
-      return Math.max.apply(Math, _toArray(arr));
+      return Math.max.apply(Math, _toConsumableArray(arr));
     };
 
     var delimiters = max(Object.keys(this.commands).map(function (key) {
@@ -283,9 +283,9 @@ var Program = (function () {
     });
 
     // program does not have commands
-    if (!names.length) return;
-
-    // sort commands alphabetically
+    if (!names.length) {
+      return;
+    } // sort commands alphabetically
     names.sort(function (a, b) {
       return a.localeCompare(b);
     });
