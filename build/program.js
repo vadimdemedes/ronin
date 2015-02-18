@@ -9,6 +9,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
  */
 
 var minimist = require("minimist");
+var flatten = require("lodash.flatten");
 var semver = require("semver");
 var spawn = require("child_process").spawn;
 var chalk = require("chalk");
@@ -147,6 +148,13 @@ var Program = (function () {
     var options = minimist(process.argv);
     var argv = options._;
 
+    if (this.delimiter !== " ") {
+      argv = argv.map(function (arg) {
+        return arg.split(_this.delimiter);
+      });
+      argv = flatten(argv);
+    }
+
     // determine if it is a help command
     var isHelp = !argv.length || options.h || options.help;
 
@@ -167,7 +175,7 @@ var Program = (function () {
     var command = this.commands[name];
 
     // strip command name from arguments
-    var delimiters = name.split(this.delimiter).length;
+    var delimiters = this.delimiter === " " ? name.split(this.delimiter).length : 1;
 
     process.argv.splice(0, delimiters);
 
@@ -206,6 +214,8 @@ var Program = (function () {
     // was last executed
     var tmpPath = join(os.tmpdir(), name);
 
+    var shouldCheck = true;
+
     try {
       // get mtime of tracking file
       var stat = fs.statSync(tmpPath);
@@ -217,14 +227,16 @@ var Program = (function () {
       if (new Date() - stat.mtime > 60 * 60 * 24 * 1000) {
         fs.writeFileSync(tmpPath, "", "utf-8");
       } else {
-        return done();
+        shouldCheck = false;
       }
     } catch (e) {
       // no file was created, need to create
       fs.writeFileSync(tmpPath, "", "utf-8");
     }
 
-    // get the latest version of itself
+    if (!shouldCheck) {
+      return done();
+    } // get the latest version of itself
     exec("npm info " + name + " version", function (err, latestVersion) {
       // compare using semver
       var updateAvailable = err || !latestVersion ? false : semver.gt(latestVersion, version);
