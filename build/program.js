@@ -16,7 +16,6 @@ var chalk = require("chalk");
 var table = require("text-table");
 var glob = require("glob").sync;
 var exec = require("child_process").exec;
-var join = require("path").join;
 var fs = require("fs");
 var os = require("os");
 
@@ -24,6 +23,7 @@ var os = require("os");
 var separator = require("path").sep;
 var normalize = require("path").normalize;
 var basename = require("path").basename;
+var join = require("path").join;
 
 // utilities
 require("./util");
@@ -96,7 +96,13 @@ var Program = (function () {
     }var files = glob(join(this.path, "commands", "**", "*"));
 
     files.forEach(function (path) {
-      path = path.replace(join(_this.path, "commands"), "").replace(separator, "");
+      // next 2 lines are for windows
+      // compatibility, because glob
+      // returns "/" instead of "\"
+      // and lower-cased drive letter
+      path = path.replace("/", separator).replace(/^./, function ($1) {
+        return $1.toUpperCase();
+      }).replace(join(_this.path, "commands"), "").replace(separator, "");
 
       // include only .js files
       if (/\.js$/.test(path)) {
