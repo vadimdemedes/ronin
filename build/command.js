@@ -74,7 +74,8 @@ var Command = (function () {
 
     // get description for each command
     var commands = names.map(function (name) {
-      var desc = new _this.program.commands[name]().help("compact");
+      var command = _this.program._get(name);
+      var desc = new command().help("compact");
 
       return [name, desc];
     });

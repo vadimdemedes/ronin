@@ -102,11 +102,7 @@ var Program = (function () {
       if (/\.js$/.test(path)) {
         var _name = path.split(separator).join(_this.delimiter).replace(".js", "");
 
-        var command = require(join(_this.path, "commands", path));
-        command.prototype.program = _this;
-        command.prototype.name = _name;
-
-        _this.commands[_name] = command;
+        _this.commands[_name] = join(_this.path, "commands", path);
       }
     });
   };
@@ -172,7 +168,7 @@ var Program = (function () {
     });
 
     var name = matches.reverse()[0] || "";
-    var command = this.commands[name];
+    var command = this._get(name);
 
     // strip command name from arguments
     var delimiters = this.delimiter === " " ? name.split(this.delimiter).length : 1;
@@ -193,6 +189,36 @@ var Program = (function () {
     } else {
       this.invoke(command);
     }
+  };
+
+
+
+
+  /**
+   * Lazy load command
+   *
+   * @api private
+   */
+  Program.prototype._get = function _get(name) {
+    var path = this.commands[name];
+
+    // if value is not string (not path)
+    // then this command was already require()'ed
+    if (typeof path !== "string") {
+      return path;
+    }var command = require(path);
+
+    // create a bridge between command
+    // and a program
+    command.prototype.program = this;
+
+    // and tell it what is its name
+    command.prototype.name = name;
+
+    // save to prevent the same work ^
+    this.commands[name] = command;
+
+    return command;
   };
 
 
@@ -304,7 +330,8 @@ var Program = (function () {
 
     // get description for each command
     var commands = names.map(function (name) {
-      var desc = new _this.commands[name]().help("compact");
+      var command = _this._get(name);
+      var desc = new command().help("compact");
 
       return [name, desc];
     });
@@ -326,7 +353,7 @@ var Program = (function () {
    * @api public
    */
   Program.prototype.invoke = function invoke(command) {
-    if (typeof command === "string") command = this.commands[command];
+    if (typeof command === "string") command = this._get(command);
 
     new command().execute();
   };
