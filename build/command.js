@@ -139,7 +139,7 @@ var Command = (function () {
       // "aliases" or "alias" property
       // can be string or array
       // need to always convert to array
-      var aliases = options.aliases || option.alias || [];
+      var aliases = option.aliases || option.alias || [];
       if (typeof aliases === "string") aliases = [aliases];
 
       aliases.forEach(function (alias) {

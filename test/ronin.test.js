@@ -151,7 +151,10 @@ describe ('Ronin', function () {
 			var cases = [
 				'node hello-world.js apps destroy some-app --force',
 				'node hello-world.js apps destroy some-app --force true',
-				'node hello-world.js apps destroy --force some-app'
+				'node hello-world.js apps destroy --force some-app',
+				'node hello-world.js apps destroy some-app -f',
+				'node hello-world.js apps destroy some-app -f true',
+				'node hello-world.js apps destroy -f some-app'
 			];
 			
 			cases.forEach(function (args) {
