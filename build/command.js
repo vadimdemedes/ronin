@@ -61,7 +61,7 @@ var Command = (function () {
       // add command to the list if
       // - it does not equal to itself
       // - it contains the name of a current command
-      return name !== _this.name && name.indexOf(_this.name) > -1;
+      return name !== _this.name && name.split(_this.program.delimiter).indexOf(_this.name) > -1;
     });
 
     // no sub-commands
