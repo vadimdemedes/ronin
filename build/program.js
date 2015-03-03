@@ -100,7 +100,7 @@ var Program = (function () {
       // compatibility, because glob
       // returns "/" instead of "\"
       // and lower-cased drive letter
-      path = path.replace("/", separator).replace(/^./, function ($1) {
+      path = path.replace(/\//g, separator).replace(/^./, function ($1) {
         return $1.toUpperCase();
       }).replace(join(_this.path, "commands"), "").replace(separator, "");
 
