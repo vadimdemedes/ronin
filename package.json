@@ -37,9 +37,5 @@
   },
   "bin": {
     "ronin": "./bin/ronin"
-  },
-  "peerDependencies": {
-    "yo": ">=1.0.0",
-    "generator-ronin": "^0.1.2"
   }
 }
