@@ -17,7 +17,7 @@ describe ('Ronin', function () {
   afterEach(function () {
     process.removeAllListeners('uncaughtException');
   });
-  
+
 	describe ('Setup', function () {
 		it ('should setup application with no arguments', function () {
 			var program = ronin();
@@ -61,93 +61,103 @@ describe ('Ronin', function () {
 			program.name.should.equal('hello-world');
 		});
 	});
-	
+
 	describe ('Commands', function () {
 		it ('should show root help', function () {
 			var program = createProgram();
-			
+
 			var cases = [
 				'node hello-world.js',
 				'node hello-world.js -h',
 				'node hello-world.js --help'
 			];
-			
+
 			cases.forEach(function (args) {
 				var stdout = outputStream();
 				program.stdout = stdout;
-				
+
 				process.argv = args.split(' ');
 				program.run();
-				
+
 				stdout.output.should.equal(
-					'Usage: hello-world COMMAND [OPTIONS]\n\n' +
-					'  Hello World application\n\n' +
-					'Available commands:\n\n' +
-					'apps              List applications\n' +
-					'generate project  Generate new project\n'
+          '\n' +
+					'  Usage: hello-world [options] <command>\n' +
+          '\n' +
+					'  Hello World application\n' +
+          '\n' +
+					'  Commands:\n' +
+          '\n' +
+					'    apps              List applications\n' +
+					'    generate project  Generate new project\n' +
+          '\n\n'
 				);
 			});
 		});
-		
+
 		it ('should show help for individual command', function () {
 			var program = createProgram();
-			
+
 			var cases = [
 				'node hello-world.js apps -h',
 				'node hello-world.js apps --help'
 			];
-			
+
 			cases.forEach(function (args) {
 				var stdout = outputStream();
 				program.stdout = stdout;
-				
+
 				process.argv = args.split(' ');
 				program.run();
-				
+
 				stdout.output.should.equal(
-					'Usage: hello-world apps [OPTIONS]\n\n' +
-					'  List applications\n\n' +
-					'Additional commands:\n\n' +
-					'apps add      Add application\n' +
-					'apps destroy  Destroy application\n' +
-					'apps edit     Edit application\n'
+          '\n' +
+					'  Usage: hello-world apps [options] <command>\n' +
+          '\n' +
+					'  List applications\n' +
+          '\n' +
+					'  Commands:\n' +
+          '\n' +
+					'    apps add      Add application\n' +
+					'    apps destroy  Destroy application\n' +
+					'    apps edit     Edit application\n' +
+          '\n\n'
 				);
 			});
 		});
-		
+
 		it ('should execute command with no arguments', function () {
 			var stdout = outputStream();
 			var program = createProgram();
 			program.stdout = stdout;
-			
+
 			process.argv = 'node hello-world.js apps'.split(' ');
 			program.run();
-			
+
 			stdout.output.should.equal('apps\n');
 		});
-		
+
 		it ('should execute command with an option and argument', function () {
 			var program = createProgram();
-			
+
 			var cases = [
 				'node hello-world.js apps add --stack cedar some-app',
 				'node hello-world.js apps add some-app --stack cedar'
 			];
-			
+
 			cases.forEach(function (args) {
 				var stdout = outputStream();
 				program.stdout = stdout;
-				
+
 				process.argv = args.split(' ');
 				program.run();
-				
+
 				stdout.output.should.equal('apps add cedar some-app\n');
 			});
 		});
-		
+
 		it ('should execute command with an alias option and argument', function () {
 			var program = createProgram();
-			
+
 			var cases = [
 				'node hello-world.js apps destroy some-app --force',
 				'node hello-world.js apps destroy some-app --force true',
@@ -156,55 +166,55 @@ describe ('Ronin', function () {
 				'node hello-world.js apps destroy some-app -f true',
 				'node hello-world.js apps destroy -f some-app'
 			];
-			
+
 			cases.forEach(function (args) {
 				var stdout = outputStream();
 				program.stdout = stdout;
-				
+
 				process.argv = args.split(' ');
 				program.run();
-				
+
 				stdout.output.should.equal('apps destroy some-app true\n');
 			});
 		});
-		
+
 		it ('should execute command with a global option', function () {
 		  var program = createProgram();
-		  
+
 		  var cases = [
 		    'node hello-world.js generate project hello --verbose --app world',
 		    'node hello-world.js generate project hello -a world --verbose',
 		    'node hello-world.js generate project hello --app world --verbose'
 		  ];
-		  
+
 		  cases.forEach(function (args) {
 		    var stdout = outputStream();
 		    program.stdout = stdout;
-		    
+
 		    process.argv = args.split(' ');
 		    program.run();
-		    
+
 		    stdout.output.should.equal('generate project hello true world world\n');
 		  });
 		});
 	});
-	
+
 	describe ('Middleware', function () {
 		it ('should execute middleware', function (done) {
 			var stdout = outputStream();
 			var program = createProgram();
 			program.stdout = stdout;
-			
+
 			process.argv = 'node hello-world.js apps edit some-app'.split(' ');
 			program.run();
-			
+
 			setTimeout(function () {
 				stdout.output.should.equal(
 					'auth\n' +
 					'beforeRun\n' +
 					'apps edit some-app\n'
 				);
-				
+
 				done();
 			}, 1000);
 		});
@@ -232,6 +242,6 @@ function outputStream () {
 		stdout.output += chunk;
 		next();
 	};
-	
+
 	return stdout;
 }
