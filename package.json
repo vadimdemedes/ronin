@@ -37,8 +37,5 @@
     "object-assign": "^4.0.1",
     "semver": "^4.2.0",
     "text-table": "^0.2.0"
-  },
-  "bin": {
-    "ronin": "./bin/ronin"
   }
 }
