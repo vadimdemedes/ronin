@@ -46,20 +46,6 @@ describe ('Ronin', function () {
 			program.delimiter.should.equal(':');
 			program.name.should.equal('hello-world');
 		});
-
-		it ('should setup application with arguments using .set()', function () {
-			var program = ronin();
-
-			program.set({
-				path: __dirname,
-				delimiter: ':',
-				name: 'hello-world'
-			});
-
-			program.path.should.equal(__dirname);
-			program.delimiter.should.equal(':');
-			program.name.should.equal('hello-world');
-		});
 	});
 
 	describe ('Commands', function () {
@@ -85,11 +71,16 @@ describe ('Ronin', function () {
           '\n' +
 					'  Hello World application\n' +
           '\n' +
+          '  Options:\n' +
+          '\n' +
+          '    -h, --help  Display help\n' +
+          '    -a, --app   Application name\n' +
+          '\n' +
 					'  Commands:\n' +
           '\n' +
 					'    apps              List applications\n' +
 					'    generate project  Generate new project\n' +
-          '\n\n'
+          '\n'
 				);
 			});
 		});
@@ -120,7 +111,7 @@ describe ('Ronin', function () {
 					'    apps add      Add application\n' +
 					'    apps destroy  Destroy application\n' +
 					'    apps edit     Edit application\n' +
-          '\n\n'
+          '\n'
 				);
 			});
 		});
@@ -229,7 +220,8 @@ function createProgram () {
 		options: {
 		  app: {
 		    type: 'string',
-		    alias: 'a'
+		    alias: 'a',
+        desc: 'Application name'
 		  }
 		}
 	});
