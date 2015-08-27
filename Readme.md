@@ -1,27 +1,27 @@
-# Ronin
+# Ronin [![Circle CI](https://circleci.com/gh/vdemedes/ronin.svg?style=svg)](https://circleci.com/gh/vdemedes/ronin)
 
 Toolkit for building shining CLI programs in Node.js.
 
-[![Circle CI](https://circleci.com/gh/vdemedes/ronin.svg?style=svg)](https://circleci.com/gh/vdemedes/ronin)
 
-## Features
+### Features
 
 - *Forced & clean* organization of program code
 - Command name generation based on folder structure
 - CLI tool to quickly create program skeleton and commands
 - Auto-generated usage and help
-- Small codebase (269 sloc)
-- **Program auto-updates itself when new version is available**
+- Program auto-updates itself when new version is available
 
-## Installation
+
+### Installation
 
 ```
-npm install ronin --global
+$ npm install ronin --save
 ```
 
-## Getting Started
 
-### Creating basic structure
+### Getting Started
+
+#### Creating basic structure
 
 Execute the following command to generate basic skeleton for your program:
 
@@ -74,16 +74,18 @@ Each folder is treated like a namespace and each file like a command, where file
 
 To actually create handlers for those commands, in each file, Command should be defined:
 
-```javascript
+```js
 var Command = require('ronin').Command;
 
-var AppsAddCommand = module.exports = Command.extend({
+var AppsAdd = Command.extend({
     desc: 'This command adds application',
     
     run: function (name) {
         // create an app with name given in arguments
     }
 });
+
+module.exports = AppsAdd;
 ```
 
 To run this command, execute:
@@ -93,6 +95,7 @@ $ hello-world apps add great-app
 ```
 
 Whatever arguments passed to command after command name, will be passed to .run() method in the same order they were written.
+
 
 #### Specifying options
 
@@ -156,7 +159,7 @@ program.run();
 After that, `apps create` command will become `apps:create`.
 
 
-### Middleware
+#### Middleware
 
 There are often requirements to perform the same operations/checks for many commands.
 For example, user authentication.
@@ -190,26 +193,24 @@ So in this example, Ronin will detect that `beforeRun` function is defined insid
 **Note**: To interrupt the whole program and stop execution, just throw an error.
 
 
-### Auto-updating
+#### Auto-updating
 
 To make your program auto-update itself, only 1 line of code needed.
-Go to your program's index file and replace `program.run()` with this:
+Go to your program's index file and insert the following line:
 
-```javascript
-program.autoupdate(function () {
-  program.run();
-});
+```js
+program.autoupdate();
 ```
 
 From now on, your program will check for updates once a day and if new update is available, it will automatically install it.
 **How cool is this?**
 
-## Tests
+### Tests
 
 ```
-npm test
+$ make test
 ```
 
-## License
+### License
 
 Ronin is released under the MIT License.
