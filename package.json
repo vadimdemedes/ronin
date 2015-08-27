@@ -25,20 +25,16 @@
   },
   "dependencies": {
     "async": "^0.9.0",
-    "chalk": "^0.5.1",
     "class-extend": "^0.1.1",
     "generate-help": "^1.0.2",
     "get-result": "^0.1.0",
     "get-value": "^1.1.5",
-    "glob": "^4.3.1",
+    "is_js": "^0.7.4",
     "list-dir": "^1.0.0",
-    "lodash.flatten": "^3.0.0",
     "minimist": "^1.1.0",
     "minimist-options": "^1.0.0",
     "object-assign": "^4.0.1",
-    "semver": "^4.2.0",
     "set-value": "^0.2.0",
-    "text-table": "^0.2.0",
     "update-notifier": "^0.5.0"
   },
   "main": "index.js"

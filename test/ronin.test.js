@@ -6,7 +6,6 @@ require('chai').should();
 
 var resolve = require('path').resolve;
 var ronin = require('../');
-var chalk = require('chalk');
 
 
 /**
