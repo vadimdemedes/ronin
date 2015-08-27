@@ -28,21 +28,21 @@ describe ('Ronin', function () {
 		});
 
 		it ('should setup application with root path', function () {
-			var program = ronin(__dirname);
+			var program = ronin(__dirname + '/fixtures/hello-world');
 
-			program.path.should.equal(__dirname);
+			program.path.should.equal(__dirname + '/fixtures/hello-world');
 			program.delimiter.should.equal(' ');
 			program.name.should.equal('_mocha');
 		});
 
 		it ('should setup application with arguments', function () {
 			var program = ronin({
-				path: __dirname,
+				path: __dirname + '/fixtures/hello-world',
 				delimiter: ':',
 				name: 'hello-world'
 			});
 
-			program.path.should.equal(__dirname);
+			program.path.should.equal(__dirname + '/fixtures/hello-world');
 			program.delimiter.should.equal(':');
 			program.name.should.equal('hello-world');
 		});
