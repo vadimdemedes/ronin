@@ -19,14 +19,6 @@ describe ('Ronin', function () {
   });
 
 	describe ('Setup', function () {
-		it ('should setup application with no arguments', function () {
-			var program = ronin();
-
-			program.path.should.equal(resolve(__dirname + '/../'));
-			program.delimiter.should.equal(' ');
-			program.name.should.equal('_mocha');
-		});
-
 		it ('should setup application with root path', function () {
 			var program = ronin(__dirname + '/fixtures/hello-world');
 
