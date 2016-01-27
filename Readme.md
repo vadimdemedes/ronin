@@ -19,6 +19,11 @@ Toolkit for building shining CLI programs in Node.js.
 npm install ronin --global
 ```
 
+Note: If you haven't already, you'll need yo installed as well:
+```
+npm install -g yo
+```
+
 ## Getting Started
 
 ### Creating basic structure
