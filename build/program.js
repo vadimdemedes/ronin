@@ -226,7 +226,7 @@ var Program = (function () {
    * @api public
    */
 
-  Program.prototype.autoupdate = function autoupdate(done) {
+  Program.prototype.autoupdate = function autoupdate(done, options) {
     var pkg = require(join(this.path, (options || {}).packageJsonFile || "package.json"));
 
     var name = pkg.name;
