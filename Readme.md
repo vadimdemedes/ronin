@@ -204,6 +204,18 @@ program.autoupdate(function () {
 From now on, your program will check for updates once a day and if new update is available, it will automatically install it.
 **How cool is this?**
 
+Optionally, you can pass in an `options` object to override the path to the package.json file or the TTL on how often to check for updates:
+
+```javascript
+var options = {
+  packageJsonFile: '../package.json',
+  checkTTL: 600000 //10 mins
+};
+program.autoupdate(function () {
+  program.run();
+}, options);
+```
+
 ## Tests
 
 ```
