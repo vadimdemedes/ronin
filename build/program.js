@@ -102,13 +102,14 @@ var Program = (function () {
       // and lower-cased drive letter
       path = path.replace(/\//g, separator).replace(/^./, function ($1) {
         return $1.toUpperCase();
-      }).replace(join(_this.path, "commands"), "").replace(separator, "");
+      }).replace(join(_this.path, "commands"), "");//.replace(separator, "");
 
       // include only .js files
       if (/\.js$/.test(path)) {
         var _name = path.split(separator).join(_this.delimiter).replace(".js", "");
-
-        _this.commands[_name] = join(_this.path, "commands", path);
+		    _name = _name.split(" ");
+		    _name = _name[_name.length-1];
+        _this.commands[_name] = path;//join(_this.path, "commands", path);
       }
     });
   };
