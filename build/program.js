@@ -107,8 +107,8 @@ var Program = (function () {
       // include only .js files
       if (/\.js$/.test(path)) {
         var _name = path.split(separator).join(_this.delimiter).replace(".js", "");
-		    _name = _name.split(" ");
-		    _name = _name[_name.length-1];
+        _name = _name.split(" ");
+        _name = _name[_name.length-1];
         _this.commands[_name] = path;//join(_this.path, "commands", path);
       }
     });
