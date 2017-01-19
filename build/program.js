@@ -10,6 +10,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var minimist = require("minimist");
 var flatten = require("lodash.flatten");
+var assign = require("object-assign");
 var semver = require("semver");
 var spawn = require("child_process").spawn;
 var chalk = require("chalk");
@@ -24,9 +25,6 @@ var separator = require("path").sep;
 var normalize = require("path").normalize;
 var basename = require("path").basename;
 var join = require("path").join;
-
-// utilities
-require("./util");
 
 /**
  * Program
@@ -48,7 +46,7 @@ var Program = (function () {
 
     // if it's an object
     // extend this with it
-    if ("object" === typeof options) Object.assign(this, options);
+    if ("object" === typeof options) assign(this, options);
   }
 
   /**
@@ -59,16 +57,14 @@ var Program = (function () {
    * @returns {Mixed}
    * @api public
    */
+
   Program.prototype.set = function set(key, value) {
     if ("object" === typeof key) {
-      return Object.assign(this, key);
+      return assign(this, key);
     }
 
     return this[key] = value;
   };
-
-
-
 
   /**
    * Get option
@@ -77,20 +73,20 @@ var Program = (function () {
    * @returns {Mixed}
    * @api public
    */
+
   Program.prototype.get = function get(key) {
     return this[key];
   };
-
-
-
 
   /**
    * Setup commands
    *
    * @api private
    */
+
   Program.prototype.setupCommands = function setupCommands() {
     var _this = this;
+
     if (!fs.existsSync(this.path)) {
       return;
     }var files = glob(join(this.path, "commands", "**", "*"));
@@ -113,16 +109,15 @@ var Program = (function () {
     });
   };
 
-
-
-
   /**
    * Run a program
    *
    * @api public
    */
+
   Program.prototype.run = function run() {
     var _this = this;
+
     // catch exceptions
     process.on("uncaughtException", function (err) {
       var nativeErrors = ["EvalError", "InternalError", "RangeError", "ReferenceError", "SyntaxError", "TypeError", "URIError"];
@@ -197,14 +192,12 @@ var Program = (function () {
     }
   };
 
-
-
-
   /**
    * Lazy load command
    *
    * @api private
    */
+
   Program.prototype._get = function _get(name) {
     var path = this.commands[name];
 
@@ -227,16 +220,14 @@ var Program = (function () {
     return command;
   };
 
-
-
-
   /**
    * Auto-update a program
    *
    * @api public
    */
-  Program.prototype.autoupdate = function autoupdate(done) {
-    var pkg = require(join(this.path, "package.json"));
+
+  Program.prototype.autoupdate = function autoupdate(done, options) {
+    var pkg = require(join(this.path, (options || {}).packageJsonFile || "package.json"));
 
     var name = pkg.name;
     var version = pkg.version;
@@ -256,7 +247,8 @@ var Program = (function () {
       // than a day ago
       // update its mtime and autoupdate
       // else just run the program
-      if (new Date() - stat.mtime > 60 * 60 * 24 * 1000) {
+      var checkTTL = (options || {}).checkTTL || 60 * 60 * 24 * 1000;
+      if (new Date() - stat.mtime > checkTTL) {
         fs.writeFileSync(tmpPath, "", "utf-8");
       } else {
         shouldCheck = false;
@@ -283,17 +275,16 @@ var Program = (function () {
     });
   };
 
-
-
-
   /**
    * Show help
    *
    * @param {String} command
    * @api public
    */
+
   Program.prototype.help = function help() {
     var _this = this;
+
     // calculate a maximum number
     // of delimiters in all command names
     var max = function (arr) {
@@ -349,15 +340,13 @@ var Program = (function () {
     return help;
   };
 
-
-
-
   /**
    * Execute command
    *
    * @param {String} command
    * @api public
    */
+
   Program.prototype.invoke = function invoke(command) {
     if (typeof command === "string") command = this._get(command);
 
@@ -366,9 +355,6 @@ var Program = (function () {
 
   return Program;
 })();
-
-
-
 
 /**
  * Expose `Program`
